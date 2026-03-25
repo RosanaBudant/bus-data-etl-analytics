@@ -81,11 +81,8 @@ bus-data-etl-analytics/
 │   └── generate_sql_inserts.py
 │
 ├── sql/
-│   ├── consultas_data_lake.sql
+│   ├── queries_data_lake.sql
 │   └── inserts_exemplo.sql
-│
-├── output/
-│   └── inserts_itinerarios.json
 │
 └── README.md
 ```
