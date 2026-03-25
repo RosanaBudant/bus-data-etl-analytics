@@ -1,114 +1,125 @@
-# 🚌 Bus Data Processing
+# 🚌 Bus Data ETL & Analytics
 
-Projeto em Python para tratamento e análise de dados de transporte público, com foco em limpeza e padronização de informações inconsistentes em arquivos CSV.
+Projeto de engenharia e análise de dados utilizando Python, SQL e MongoDB para processamento de dados de transporte público.
 
----
-
-## 📌 Sobre o projeto
-
-Bases de dados reais frequentemente apresentam problemas como:
-
-* horários inválidos (ex: `25:30`)
-* valores ausentes ou inconsistentes
-* dados mal formatados
-
-Este projeto resolve esses problemas aplicando técnicas de **data cleaning** com Python e pandas.
+O projeto implementa um pipeline completo de dados (ETL), incluindo extração, transformação, carga e análise de dados provenientes de múltiplas fontes.
 
 ---
 
-## ⚙️ Funcionalidades
+## 📌 Objetivo
 
-### ⏱️ Normalização de horários
+Demonstrar habilidades práticas em:
 
-* Corrige horários acima de 24h
-* Converte valores como `25:30` → `01:30`
-* Garante padronização no formato `HH:MM`
-
----
-
-### 🧹 Limpeza de dados de itinerário
-
-* Identifica valores inválidos (como `"nan"` em texto)
-* Remove ou corrige dados inconsistentes
-* Analisa frequência de valores
+* Engenharia de dados (ETL)
+* Limpeza e transformação de dados
+* Integração entre diferentes tecnologias
+* Consultas analíticas em Data Lake
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## 🧱 Arquitetura do Projeto
+
+O pipeline segue as seguintes etapas:
+
+### 📥 Extract
+
+* Leitura de arquivos CSV com diferentes formatos e encodings
+* Consulta a dados em Data Lake utilizando `OPENROWSET`
+
+---
+
+### 🔄 Transform
+
+* Normalização de horários (ex: `25:30` → `01:30`)
+* Limpeza de dados inconsistentes
+* Tratamento de valores nulos
+
+---
+
+### 📤 Load
+
+#### 🟢 MongoDB (NoSQL)
+
+* Inserção de dados em lote (batch processing)
+* Geração de scripts `insertMany`
+* Tratamento de grandes volumes de dados
+
+#### 🔵 SQL (Relacional)
+
+* Geração de comandos `INSERT INTO`
+* Preparação de carga para banco relacional
+
+---
+
+### 📊 Analytics
+
+* Consultas SQL diretamente no Data Lake
+* JOIN entre dados de diferentes origens (PostgreSQL + MongoDB)
+* Análises de horários, linhas e itinerários
+
+---
+
+## 🛠️ Tecnologias
 
 * Python 3
 * pandas
+* MongoDB
+* SQL (Data Lake / OPENROWSET)
 
 ---
 
 ## 📂 Estrutura do projeto
 
-```
-bus-data-processing/
+```bash
+bus-data-etl-analytics/
 │
 ├── data/
-│   ├── tabela_horaria_onibus.csv
-│   └── itinerario_onibus.csv
-│
 ├── scripts/
-│   ├── normalizar_horarios.py
-│   └── analisar_itinerario.py
+│   ├── transform_horarios.py
+│   ├── transform_itinerario.py
+│   ├── load_mongodb_batches.py
+│   └── generate_sql_inserts.py
+│
+├── sql/
+│   ├── consultas_data_lake.sql
+│   └── inserts_exemplo.sql
 │
 ├── output/
-│   ├── horarios_corrigidos.csv
-│   └── itinerario_limpo.csv
+│   └── inserts_itinerarios.json
 │
 └── README.md
 ```
 
 ---
 
-## ▶️ Como executar
+## 📊 Exemplos de análises
 
-1. Instale as dependências:
-
-```
-pip install pandas
-```
-
-2. Coloque os arquivos CSV na pasta `data/`
-
-3. Execute os scripts:
-
-```
-python scripts/normalizar_horarios.py
-python scripts/analisar_itinerario.py
-```
+* Quantidade de horários por linha
+* Distribuição por período do dia (manhã, tarde, noite)
+* Relação entre linhas e pontos de parada
+* Primeiro e último horário por linha
+* Sequência de itinerários
 
 ---
 
-## 📊 Exemplos
+## 💡 Diferenciais
 
-### Antes (horários inválidos)
-
-```
-25:30
-26:15
-```
-
-### Depois (corrigido)
-
-```
-01:30
-02:15
-```
+* Pipeline completo de dados (ETL)
+* Integração entre múltiplas fontes (CSV, Data Lake, MongoDB)
+* Processamento em lote para grandes volumes
+* Uso de dados reais com inconsistências
 
 ---
 
-## 💡 Possíveis melhorias
+## 🚀 Possíveis melhorias
 
-* Interface de linha de comando (CLI)
-* Validação automática de colunas
-* Geração de relatórios
+* Automação do pipeline (Airflow)
+* Criação de dashboards (Power BI)
+* API para consulta dos dados
 * Testes automatizados
 
 ---
 
 ## 👩‍💻 Autora
 
-Projeto desenvolvido por Rosana Budant como prática de análise e tratamento de dados com Python.
+Projeto desenvolvido por Rosana Budant como prática de engenharia e análise de dados.
